@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import fetch from 'node-fetch';
 
 import config from './config.js';
 import * as discord from './discord.js';
@@ -21,6 +22,22 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.send('👋');
 });
+
+// Ping route for keep-alive
+app.get('/ping', (req, res) => {
+  res.send('pong');
+});
+
+// Self-ping function to keep the instance alive
+async function keepAlive() {
+  const url = process.env.RENDER_EXTERNAL_URL || `http://localhost:${process.env.PORT || 10000}`;
+  try {
+    const response = await fetch(`${url}/ping`);
+    console.log(`[${new Date().toISOString()}] Keep-alive ping: ${response.status}`);
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] Keep-alive ping failed:`, error.message);
+  }
+}
 
 // Route to initiate the Discord OAuth2 flow
 app.get('/linked-role', async (req, res) => {
@@ -99,7 +116,17 @@ async function updateMetadata(userId) {
 }
 
 // Start the server on the designated port
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Tiệm cafe mèo Yumi's house ${port}`);
+const port = process.env.PORT || 10000;
+app.listen(port, '0.0.0.0', (err) => {
+  if (err) {
+    console.error('Error starting server:', err);
+    process.exit(1);
+  }
+  console.log(`Tiệm cafe mèo Yumi's house listening at http://0.0.0.0:${port}`);
+  
+  // Start the keep-alive pings if we're on Render
+  if (process.env.RENDER_EXTERNAL_URL) {
+    setInterval(keepAlive, 5000); // Ping every 5 seconds
+    console.log('Keep-alive pinger started');
+  }
 });
