@@ -1,0 +1,30 @@
+{
+  "name": "linked-role-bot",
+  "version": "1.0.0",
+  "private": "true",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
+  "description": "A very simple example of a Linked Role bot for Discord.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Justin Beckwith <justin.beckwith@discordapp.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "lucide-react": "^0.484.0",
+    "nconf": "^0.12.0",
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.17"
+  }
+}
