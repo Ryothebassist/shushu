@@ -7,7 +7,7 @@ const body = [
   {
     key: 'shu',
     name: 'uwu',
-    description: 'hihi',
+    description: "Tiệm Cà Phê Mèo Shu's House",
     type: 1, // string type to support comma-separated user IDs
   },
 ];
