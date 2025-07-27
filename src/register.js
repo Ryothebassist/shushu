@@ -8,7 +8,7 @@ const body = [
     key: 'shu',
     name: 'uwu',
     description: 'hihi',
-    type: 3, // boolean equality
+    type: 1, // string type to support comma-separated user IDs
   },
 ];
 
